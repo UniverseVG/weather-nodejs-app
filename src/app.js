@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
   res.render("index", {
     title: "Weather",
     name: "Varun",
+    serverUrl: process.env.SERVER_URL,
   });
 });
 

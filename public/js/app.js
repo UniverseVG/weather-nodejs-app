@@ -1,4 +1,7 @@
 const weatherForm = document.querySelector("form");
+const serverUrl = document
+  .querySelector(".main-content")
+  .getAttribute("data-server-url");
 const search = document.querySelector("input");
 const messageOne = document.querySelector("#message-1");
 const messageTwo = document.querySelector("#message-2");
@@ -12,19 +15,17 @@ weatherForm.addEventListener("submit", (event) => {
 });
 
 const fetchWhetherData = (address) => {
-  return fetch(`http://localhost:3000/weather?address=${address}`).then(
-    (response) => {
-      response.json().then((data) => {
-        if (data.error) {
-          search.value = "";
-          messageOne.textContent = data.error;
-          messageOne.style.color = "red";
-        } else {
-          search.value = "";
-          messageOne.textContent = data.location;
-          messageTwo.textContent = data.forecast;
-        }
-      });
-    }
-  );
+  return fetch(`${serverUrl}/weather?address=${address}`).then((response) => {
+    response.json().then((data) => {
+      if (data.error) {
+        search.value = "";
+        messageOne.textContent = data.error;
+        messageOne.style.color = "red";
+      } else {
+        search.value = "";
+        messageOne.textContent = data.location;
+        messageTwo.textContent = data.forecast;
+      }
+    });
+  });
 };
